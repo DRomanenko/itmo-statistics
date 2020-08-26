@@ -1,0 +1,108 @@
+\documentclass{article}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian, english]{babel}
+\usepackage[left=2.3cm, right=2.3cm, top=2.7cm, bottom=2.7cm, bindingoffset=0cm, margin=3in]{geometry}
+\parindent 0pt
+\parskip -5pt
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[shortlabels]{enumitem}
+\usepackage[all]{xy}
+\usepackage[usenames]{color}
+\linespread{1.5}
+
+
+\usepackage{color}
+\usepackage{listings}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{myorange}{rgb}{0.855,0.576,0.027}
+\lstset{
+    language=Octave,
+    basicstyle=\ttfamily,
+    frame=tb,
+    extendedchars=\true,
+    morecomment = [l][\itshape\color{blue}]{\%},
+    keywordstyle=\color{blue},
+    commentstyle=\color{mygreen},
+    breakatwhitespace=false,         
+    breaklines=true,  
+    numbers=left,
+    numbersep=-10pt,
+    numberstyle=\tiny\color{mygray}, 
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    stringstyle=\color{myorange},
+    title=\lstname,
+    literate=
+    {+}{{{\color{red}+}}}1
+    {-}{{{\color{red}-}}}1
+    {*}{{{\color{red}*}}}1
+    {,}{{{\color{red},}}}1
+    {=}{{{\color{red}=}}}1
+    {)}{{{\color{red})}}}1
+    {(}{{{\color{red}(}}}1
+    {;}{{{\color{red};}}}1
+    {:}{{{\color{red}:}}}1
+    {[}{{{\color{red}[}}}1
+    {]}{{{\color{red}]}}}1
+    {>}{{{\color{red}>}}}1
+}
+
+\title{\textbf{Отчёт №7 (вар.14)} Доверительное оценивание и проверка гипотез.}
+\author{Романенко Демьян, М3238}
+\date{16.06.2020}
+
+\begin{document}
+
+    \pagenumbering{gobble}
+	\maketitle
+	\newpage
+	\newgeometry{margin=0.8in}
+	\pagenumbering{arabic}
+
+\maketitle
+    \section{Постановка задачи}
+        Для случайной величины $X \thicksim B(p)$, гипотезы $H_0 : p = p_0 = 0.45$, альтернативы $H_1 : p \neq p_0$ при $n = 100$, $k_n = 37$ построить доверительный интервал для $\gamma = 0.95$ и проверить гипотезу на основании наиболее мощного критерия $\alpha = 0.05$.
+        \newline
+        Информация Фишера для $X \thicksim B(p) : I(p) = \frac{1}{p(1-p)}$. 
+        \newline
+        Величины $t_{\gamma}: \Phi_1(t_{\gamma}) = P(|\varepsilon| < t_{\gamma}) = \gamma$
+        \newline
+        \begin{tabular}{ | l || l | l | l | }
+        \hline
+        $\gamma$ & $0.9$ & $0.95$ & $0.99$  \\ \hline
+        $t_{\gamma}$ & $1.65$ & $1.96$ & $2.58$ \\ 
+        \hline
+        \end{tabular}
+    \section{Решение}
+        \subsection{Построение доверительного интервала}
+            ОМП {---} $\hat{\theta_n} = \hat{p_n} = \frac{k_n}{n} = \frac{37}{100} = 0.37$
+            \newline
+            $I(\hat{\theta_n}) = \frac{1}{0.37 * (1 - 0.37)} \approx 4.29$
+            \newline
+            $p_0 = 0.45 \in I_n = \left[ \hat{\theta_n} - \frac{t_{1 - \alpha}}{\sqrt{n I(\hat{\theta_n})}}; \hat{\theta_n} - \frac{t_{1 - \alpha}}{\sqrt{n I(\hat{\theta_n})}} \right] = \left[ 0.37 - \frac{1.96}{\sqrt{100 * 4.29}}; 0.37 + \frac{1.96}{\sqrt{100 * 4.29}} \right] \approx \left[ 0.27537; 0.46463 \right]$
+            \newline
+            Таким образом, гипотеза $H_0$ принимается.
+        \subsection{Проверка гипотезы}
+            Проверка гипотезы в случае двусторонней альтернативы: $\Psi_{n, \alpha}^* =
+            \begin{cases}
+                1, \sqrt{n I(\hat{\theta_n})}|\hat{\theta_n} - \theta_0| \geq t_{\gamma},
+                \\
+                0, \sqrt{n I(\hat{\theta_n})}|\hat{\theta_n} - \theta_0| < t_{\gamma};
+            \end{cases}$
+            \newline
+            $\Psi_{n, \alpha}^* = \left[ \sqrt{n I(\hat{\theta_n})}|\hat{\theta_n} - \theta_0| \right] = \left[ \sqrt{\frac{n}{p_0(1-p_0)}}|\frac{k_n}{n} - p_0| \right] = \left[ \sqrt{\frac{100}{0.45 * (1-0.45)}}|0.37 - 0.45| \right] = \left[ 1.608 < t_{\gamma} = 1.96 \right] = 0$
+            \newline
+            Таким образом, гипотеза вновь принимается.
+    \section{Вывод}
+        В ходе лабораторной работы стало ясно, что гипотеза $H_0$ принимается.
+\end{document}
+ 
